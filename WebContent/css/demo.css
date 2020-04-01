@@ -1,0 +1,13 @@
+
+#Tz_box { height: 225px; 1140px; box-shadow: 0 0 7px #000000; border-top: 7px solid #333333; border-bottom: 7px solid #333333; overflow: hidden; margin: 50px auto; position: relative }
+.bg0 div { height: 225px; background-color: transparent; background-position: left top; background-repeat: repeat; position: absolute; top: 0; left: 0; background: url("../images/bg.png"); }
+.bg0 .bg1 { background: url("../images/bg1.png"); }
+.bg0 .bg2 { background: url("../images/bg2.png"); }
+.bg0 .bg3 { background: url("../images/bg3.png"); }
+#Tz_wrap ul.slider { position: absolute }
+#Tz_wrap ul.slider > li { height: 225px; position: relative; float: left; }
+#Tz_wrap ul.slider > li img {height:180px; width: 1000px; border: 8px solid transparent; border-radius: 4px; box-shadow: 0 0 7px #222222; display: block; margin: 0 auto 0; }
+
+.btn span { width: 30px; height: 80px; top: 75px; box-shadow: 0 0 2px #000000; cursor: pointer; position: absolute; opacity: 0.6; border-radius: 4px }
+.btn span.prev {margin-left:-378px ; background: #000000 url("../images/prev.png") no-repeat center; }
+.btn span.next {margin-right:-474px ;  background: #000000 url("../images/next.png") no-repeat center; }

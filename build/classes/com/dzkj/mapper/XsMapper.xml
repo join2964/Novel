@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dzkj.mapper.XsMapper" >
+	<!-- 查询所有小说 -->
+	<select id="selStack" resultType="Stack">
+		select * from table_stack
+	</select>
+	
+	<!-- 根据小说点击量查询小说 -->
+	<select id="selStackDjl" resultType="Stack">
+		select * from table_stack order by xs_djl asc
+	</select>
+	
+	<!-- 根据小说推荐量查询小说 -->
+	<select id="selStackTjl" resultType="Stack">
+		select * from table_stack order by xs_scl asc
+	</select>
+	
+	<!-- 查询所有公告信息 -->
+	<select id="selNotice" resultType="Notice">
+		select * from table_notice order by n_date asc
+	</select>
+	
+	<!-- 根据id查询公告信息 -->
+	<select id="selNoticeId" resultType="Notice" parameterType="Int">
+		select * from table_notice where n_id=#{n_id}
+	</select>
+	
+	<!-- 根据公告类型查询所有公告信息-->
+	<select id="selNoticeLx" resultType="Notice" parameterType="String">
+		select * from table_notice where n_lx=#{n_lx}
+	</select>
+	
+	<!-- 查询所有历史记录 -->
+	<select id="selLsjl" parameterType="String" resultType="Lsjl">
+		select * from table_lsjl where user_zh=#{user_zh}
+	</select>
+	
+	<!-- 分页查询用户浏览历史 -->
+	<select id="selLsjlPage" resultType="Lsjl">
+		select * from table_lsjl where user_zh=#{user_zh} limit #{pageStart},#{pageSize}
+	</select>
+	
+	<!-- 查询用户书架 -->
+	<select id="selYhsj" parameterType="String" resultType="Yhsj">
+		select * from table_yhsj where user_zh=#{user_zh}
+	</select>
+	
+	<!-- 根据类别查询所有类别小说 -->
+	<select id="selXslx" parameterType="String" resultType="Stack">
+		select * from table_stack where xs_lx=#{xs_lx}
+	</select>
+	
+	<!-- //根据用户id和书架小说id删除用户小说 -->
+	<delete id="delYhsj" parameterType="Yhsj">
+		delete from table_yhsj where user_zh=#{user_zh} and  xs_sjxsid in (${xs_sjxsid})
+	</delete>
+	
+	<!-- 分页查询用户书架 -->
+	<select id="selYhsjPage" resultType="Yhsj">
+		select * from table_yhsj where user_zh=#{user_zh} limit #{pageStart},#{pageSize}
+	</select>
+	
+	<!-- 根据用户账号密码判断用户是否正确 -->
+	<select id="selUser" parameterType="User" resultType="User">
+		select * from table_user where user_zh=#{user_zh} and user_mm=#{user_mm}
+	</select>
+	
+	<!--更新时间排序-->
+	<select id="updUser" resultType="Stack">
+		select * from table_stack order by xs_updatetime desc
+	</select>
+	
+	<!-- 根据小说id查询小说信息 -->
+	<select id="selCover" parameterType="int" resultType="Stack">
+		select * from table_stack where xs_id=#{xs_id}
+	</select>
+	
+	<!-- 所有评论 -->
+	<select id="selComment" resultType="Comment" parameterType="int">
+		select * from table_comment where xs_id=#{xs_id}
+	</select>
+	
+	<!-- 添加评论 -->
+	<insert id="insComment" parameterType="Comment">
+		insert into table_comment(cm_id,user_id,xs_id,cm_name,cm_img,cm_collect,cm_date)  
+		value(#{cm_id},#{user_id},#{xs_id},#{cm_name},#{cm_img},#{cm_collect},#{cm_date})
+	</insert>
+	
+	<!-- 添加小说到书架 -->
+	<insert id="insStack" parameterType="Yhsj">
+		insert into table_yhsj(xs_sjxsid,user_zh,xs_sjtp,xs_sjnm,xs_sjlx,xs_sjauter,xs_sjchapter,xs_sjms,xs_sjupdatetime)  
+		value(#{xs_sjxsid},#{user_zh},#{xs_sjtp},#{xs_sjnm},#{xs_sjlx},#{xs_sjauter},#{xs_sjchapter},#{xs_sjms},#{xs_sjupdatetime})
+	</insert>
+	
+	<!-- 查询小说是否存在书架 -->
+	<select id="selNovel" resultType="String">
+		select * from table_yhsj where xs_sjxsid=#{xs_sjxsid} and user_zh=#{user_zh}
+	</select>
+	
+	<!-- 查询小说存入书架的信息 -->
+	<select id="selShelf" resultType="Stack" parameterType="int">
+		select * from table_stack where xs_id=#{xs_sjxsid}
+	</select>
+	
+	<!-- 使用模糊查询小说 -->
+	<select id="selVague" resultType="Stack" parameterType="String">
+		select * from table_stack where xs_nm like concat('%',#{selectValue},'%')
+	</select>
+	
+</mapper>
